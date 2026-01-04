@@ -1,11 +1,14 @@
 :root {
-    --bg-color: #050510;
-    --card-bg: rgba(20, 20, 35, 0.6);
+    --bg-color: #e0f2fe;
+    /* Light blue */
+    --card-bg: rgba(20, 20, 35, 0.7);
+    /* Slightly darker card bg for contrast */
     --card-border: rgba(255, 255, 255, 0.1);
     --text-main: #ffffff;
     --text-muted: #a0a0b0;
     --accent-color: #7b2cbf;
     --accent-glow: #9d4edd;
+    /* Keeping this for card glow effects */
     --success: #00ff88;
     --danger: #ff4444;
     --font-main: 'Outfit', sans-serif;
@@ -32,7 +35,7 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at center, rgba(123, 44, 191, 0.15) 0%, transparent 60%);
+    background: radial-gradient(circle at center, rgba(123, 44, 191, 0.05) 0%, transparent 60%);
     z-index: -1;
     animation: pulse 10s ease-in-out infinite alternate;
 }
@@ -54,21 +57,26 @@ h1 {
     font-weight: 700;
     letter-spacing: -1px;
     margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, #fff 0%, #a0a0b0 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    /* User requested black letters */
+    color: #000000;
+    background: none;
+    -webkit-text-fill-color: initial;
 }
 
 .highlight {
-    color: var(--accent-glow);
-    -webkit-text-fill-color: var(--accent-glow);
-    text-shadow: 0 0 20px rgba(123, 44, 191, 0.5);
+    /* User requested purple letters to be black */
+    color: #000000;
+    -webkit-text-fill-color: initial;
+    text-shadow: none;
+    font-weight: 800;
+    /* Extra bold to pop */
 }
 
 .subtitle {
-    color: var(--text-muted);
+    color: #444444;
+    /* Darker grey to be readable on light blue */
     font-size: 1.1rem;
-    font-weight: 300;
+    font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
@@ -184,12 +192,4 @@ h1 {
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-.blurred {
-    color: var(--text-muted);
-    filter: blur(4px);
-    user-select: none;
-    pointer-events: none;
-}
+ 
