@@ -21,7 +21,12 @@ const state = {
         '0x20ad9d807644fc6d89f680851253a1ddc174dc1c', // Token 19
         '0x594daad7d77592a2b97b725a7ad59d7e188b5bfa', // Token 20
         '5ad4puH6yDBoeCcrQfwV5s9bxvPnAeWDoYDj3uLyBS8k'  // Token 21
-    ]
+    ],
+    manualNames: {
+        '5ad4puH6yDBoeCcrQfwV5s9bxvPnAeWDoYDj3uLyBS8k': { name: 'RIZZ', symbol: 'RIZZ' },
+        '0x420698cfdeddea6bc78d59bc17798113ad278f9d': { name: 'Towelie', symbol: 'TOWELIE' },
+        'CPKPoYC8eEXhsRRVQJPsvgwB6nUB4a987YkciNpMmsJP': { name: 'Bonk', symbol: 'BONK' }
+    }
 };
 
 // Function to add a token by address (called by User input via console or code update)
@@ -118,11 +123,12 @@ async function updateDashboard() {
 
         // Fallback if data is missing
         if (!data) {
+            const manualInfo = (state.manualNames && state.manualNames[address]) || {};
             data = {
                 baseToken: {
-                    // Show first 6 chars of the address
-                    name: `${address.slice(0, 6)}...`,
-                    symbol: 'UNK'
+                    // Use manual name if available, otherwise show first 6 chars of the address
+                    name: manualInfo.name || `${address.slice(0, 6)}...`,
+                    symbol: manualInfo.symbol || 'UNK'
                 },
                 priceUsd: '0',
                 priceChange: { h24: 0 },
