@@ -59,13 +59,21 @@ function formatCompact(num) {
 function renderCard(pair) {
     if (!pair) return '';
 
-    const priceChange = pair.priceChange.h24;
+    // Check if it's a placeholder
+    const isPlaceholder = pair.isPlaceholder === true;
+    const blurClass = isPlaceholder ? 'blurred' : '';
+
+    // For placeholders, we might strictly show dummy text if we want "blurred numbers"
+    // But formatCurrency(0) gives $0.00. Let's use specific dummy text if placeholder.
+    const mcapDisplay = isPlaceholder ? '$8,888,888' : formatCurrency(pair.marketCap || pair.fdv || 0);
+    const priceDisplay = isPlaceholder ? '$0.000000' : '$' + pair.priceUsd;
+
+    const priceChange = pair.priceChange?.h24 || 0;
     const isUp = priceChange >= 0;
     const changeClass = isUp ? 'up' : 'down';
     const changeSymbol = isUp ? '▲' : '▼';
 
-    // Safely get Market Cap (mcap) or FDV if mcap is missing (common in some dex pairs)
-    const mcap = pair.marketCap || pair.fdv || 0;
+    const changeDisplay = isPlaceholder ? '0.00%' : `${Math.abs(priceChange).toFixed(2)}% (24h)`;
 
     return `
         <div class="card">
@@ -76,13 +84,13 @@ function renderCard(pair) {
             
             <div class="market-cap-section">
                 <div class="market-cap-label">Market Cap</div>
-                <div class="market-cap-value">${formatCurrency(mcap)}</div>
+                <div class="market-cap-value ${blurClass}">${mcapDisplay}</div>
             </div>
 
             <div class="price-row">
-                <div class="price">Price: $${pair.priceUsd}</div>
-                <div class="change ${changeClass}">
-                    ${changeSymbol} ${Math.abs(priceChange).toFixed(2)}% (24h)
+                <div class="price ${blurClass}">Price: ${priceDisplay}</div>
+                <div class="change ${changeClass} ${blurClass}">
+                    ${changeSymbol} ${changeDisplay}
                 </div>
             </div>
         </div>
@@ -102,15 +110,38 @@ async function updateDashboard() {
         return;
     }
 
-    const cardsHTML = [];
+    const cardsData = [];
 
     for (const address of state.tokens) {
-        const data = await fetchTokenData(address);
-        if (data) {
-            cardsHTML.push(renderCard(data));
+        let data = await fetchTokenData(address);
+
+        // Fallback if data is missing
+        if (!data) {
+            data = {
+                baseToken: {
+                    // Show first 6 chars of the address
+                    name: `${address.slice(0, 6)}...`,
+                    symbol: 'UNK'
+                },
+                priceUsd: '0',
+                priceChange: { h24: 0 },
+                marketCap: 0, // Set to 0 so it sorts to the bottom
+                isPlaceholder: true
+            };
         }
+
+        cardsData.push(data);
     }
 
+    // Sort by Market Cap (Largest to Smallest)
+    cardsData.sort((a, b) => {
+        const mcapA = a.marketCap || a.fdv || 0;
+        const mcapB = b.marketCap || b.fdv || 0;
+        return mcapB - mcapA;
+    });
+
+    // Render sorted cards
+    const cardsHTML = cardsData.map(data => renderCard(data));
     grid.innerHTML = cardsHTML.join('');
 }
 
