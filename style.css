@@ -110,6 +110,12 @@ h1 {
     color: var(--text-muted);
 }
 
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
 /* Typography for Token Data */
 .token-header {
     display: flex;
