@@ -19,7 +19,8 @@ const state = {
         '0x3f34d75da1027d20d052970c83bd4ddf8991557d', // Token 17
         'CPKPoYC8eEXhsRRVQJPsvgwB6nUB4a987YkciNpMmsJP', // Token 18 (Solana)
         '0x20ad9d807644fc6d89f680851253a1ddc174dc1c', // Token 19
-        '0x594daad7d77592a2b97b725a7ad59d7e188b5bfa'  // Token 20
+        '0x594daad7d77592a2b97b725a7ad59d7e188b5bfa', // Token 20
+        '5ad4puH6yDBoeCcrQfwV5s9bxvPnAeWDoYDj3uLyBS8k'  // Token 21
     ]
 };
 
@@ -149,4 +150,3 @@ async function updateDashboard() {
 updateDashboard();
 
 // Poll every 30 seconds
-setInterval(updateDashboard, 30000);
