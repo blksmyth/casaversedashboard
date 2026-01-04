@@ -71,7 +71,7 @@ function renderCard(pair) {
 
     // For placeholders, we might strictly show dummy text if we want "blurred numbers"
     // But formatCurrency(0) gives $0.00. Let's use specific dummy text if placeholder.
-    const mcapDisplay = isPlaceholder ? '$8,888,888' : formatCurrency(pair.marketCap || pair.fdv || 0);
+    const mcapDisplay = isPlaceholder ? 'sTaY tUnEd' : formatCurrency(pair.marketCap || pair.fdv || 0);
     const priceDisplay = isPlaceholder ? '$0.000000' : '$' + pair.priceUsd;
 
     const priceChange = pair.priceChange?.h24 || 0;
@@ -156,3 +156,4 @@ async function updateDashboard() {
 updateDashboard();
 
 // Poll every 30 seconds
+setInterval(updateDashboard, 30000);
