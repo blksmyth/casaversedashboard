@@ -1,0 +1,177 @@
+:root {
+    --bg-color: #050510;
+    --card-bg: rgba(20, 20, 35, 0.6);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --text-main: #ffffff;
+    --text-muted: #a0a0b0;
+    --accent-color: #7b2cbf;
+    --accent-glow: #9d4edd;
+    --success: #00ff88;
+    --danger: #ff4444;
+    --font-main: 'Outfit', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.background-glow {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(123, 44, 191, 0.15) 0%, transparent 60%);
+    z-index: -1;
+    animation: pulse 10s ease-in-out infinite alternate;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeInDown 1s ease-out;
+}
+
+h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #fff 0%, #a0a0b0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.highlight {
+    color: var(--accent-glow);
+    -webkit-text-fill-color: var(--accent-glow);
+    text-shadow: 0 0 20px rgba(123, 44, 191, 0.5);
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px 0 rgba(123, 44, 191, 0.2);
+    border-color: rgba(123, 44, 191, 0.3);
+}
+
+.empty-state {
+    text-align: center;
+    grid-column: 1 / -1;
+    padding: 4rem;
+    color: var(--text-muted);
+}
+
+/* Typography for Token Data */
+.token-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.token-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.token-symbol {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    background: rgba(255,255,255,0.05);
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+.market-cap-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.25rem;
+}
+
+.market-cap-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.price {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+}
+
+.change {
+    font-weight: 600;
+}
+
+.change.up { color: var(--success); }
+.change.down { color: var(--danger); }
+
+/* Animation */
+@keyframes pulse {
+    0% { opacity: 0.5; }
+    100% { opacity: 0.8; }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

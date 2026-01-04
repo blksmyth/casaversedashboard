@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casaverse Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="background-glow"></div>
+
+  <div class="container">
+    <header>
+      <h1>CASAVERSE <span class="highlight">DASHBOARD</span></h1>
+      <p class="subtitle">Real-time Market Data</p>
+    </header>
+
+    <div id="dashboard-grid" class="grid">
+      <!-- Token cards will be injected here -->
+      <div class="card empty-state">
+        <div class="loader"></div>
+        <p>Waiting for contract addresses...</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
